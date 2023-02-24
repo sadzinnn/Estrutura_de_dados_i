@@ -1,0 +1,77 @@
+// Versao 1.0:
+// Escrever um algoritmo que solicite duas notas e ao final apresente:
+// 1.1) A média aritmética entre as notas informadas
+// 1.2) A maior e a menor das notas informadas
+// Versao 2.0:
+// Solicitar antes ao usuário a quantidade de notas a serem informadas
+// Versao 3.0:
+// 3.1) Ao final emitir um relatório com todas as notas informadas na ordem em que foram digitadas
+// 3.2) Ao final emitir um relatório com todas as notas acima da média
+// 3.3) Ao final emitir um relatório com todas as notas abaixo da média#include <stdio.h>
+// Versao 4.0:
+// Solicitar também:
+// 4.1: Nome
+// 4.2: Idade
+// 4.3: Aprovado/Reprovado
+// 4.4: X notas (Informado no início pelo usuário)
+// 4.5: sexo do aluno
+// Solicitar os dados dos alunos até que o usuário não queira mais informar novos
+// Versao 5.0:
+// Ao final, gerar:
+// 5.1) Relatório com os nomes de todos os alunos Aprovados
+// 5.2) Relatório com os nomes de todos os alunos Reprovados
+// 5.3) Percentual de alunos por gênero
+// 5.4) Percentual de alunas aprovadas/reprovadas
+// 5.5) Percentual de alunos aprovados/reprovados
+// Por fim, responder: É verdade que alunos mais jovens estudam mais que alunos mais velhos
+#include <stdio.h>
+
+struct Alunos {
+	char Nome[30];
+	int Idade;
+	bool Aprovado;
+	float Notas[10];
+	char sexo;
+	float Media;
+};
+
+int main() {
+	struct Alunos aluno[1000];
+	int qtdNotas, Resposta, qtdAlunos=0;
+	float maior, menor, media;
+	printf(" Informe a media de aprovacao na faculdade: ");
+	scanf("%f",&media);
+
+	printf(" Informe a quantidade de notas: ");
+	scanf("%i",&qtdNotas);
+
+  do {
+	  qtdAlunos+=1;
+  	// Coletar os dados do aluno...
+  	printf(" Informe o sexo do %i. aluno(a) [M/F]: ", qtdAlunos);
+  	scanf("%s", &aluno[qtdAlunos].sexo);
+  	if (aluno[qtdAlunos].sexo == 'F' or aluno[qtdAlunos].sexo == 'f')
+  	  printf(" Informe o nome da %i. aluna: ", qtdAlunos);
+  	else if (aluno[qtdAlunos].sexo == 'M' or aluno[qtdAlunos].sexo == 'm')
+  	  printf(" Informe o nome do %i. aluno: ", qtdAlunos);  
+		else	
+		  printf(" O valor informado para sexo nao eh valido! ");  
+    scanf("%s", &aluno[qtdAlunos].Nome);
+    printf(" Informe a idade de %s: ", aluno[qtdAlunos].Nome);
+    scanf("%i", &aluno[qtdAlunos].Idade);
+    aluno[qtdAlunos].Notas[0] = 0;
+    for (int i=1; i<=qtdNotas; i++) {
+    	printf(" Informe a %i. nota: ", i);
+    	scanf("%f", &aluno[qtdAlunos].Notas[i]);
+    	aluno[qtdAlunos].Notas[0] += aluno[qtdAlunos].Notas[i];
+    }
+    aluno[qtdAlunos].Media = aluno[qtdAlunos].Notas[0] / qtdNotas;
+    aluno[qtdAlunos].Aprovado = aluno[qtdAlunos].Media >= media;
+		// Calcular as estatísticas
+  	
+  	// Perguntar se há mais alunos a serem cadastrados
+  	printf(" Deseja informar o proximo aluno [1/Sim ou 2/Nao]: ");
+  	scanf("%i", &Resposta);
+  } while (Resposta == 1);
+	
+}
